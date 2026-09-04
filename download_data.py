@@ -36,7 +36,7 @@ def get_popular_manga(limit=20):
     return manga_list
 
 
-def get_cover_filenames(manga_id, limit=4):
+def get_cover_filenames(manga_id, limit=8):
     r = requests.get(f"{BASE}/cover", params={"manga[]": manga_id, "limit": limit})
     r.raise_for_status()
     results = r.json()["data"]
@@ -81,7 +81,7 @@ failed = []
 
 for manga_id, title in popular_manga:
     try:
-        saved = download_covers_split(manga_id, title, limit=4)
+        saved = download_covers_split(manga_id, title, limit=8)
         print(f"{title}: {len(saved['reference'])} reference, {len(saved['test'])} test")
         succeeded.append(title)
     except Exception as e:
